@@ -11,23 +11,41 @@ function App() {
     { id: 4, name: 'Joan Smith' }
   ];
 
-  const handleSearch = e => {
-    setSearchValue(e.target.value);
-    const filtered = list.filter(item => item.name.toLowerCase().includes(e.target.value.toLowerCase()));
-    setFilteredList(filtered);
+  const [todos, setTodos] = useState([]);
+  const [newTodo, setNewTodo] = useState('');
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    setTodos([...todos, { id: todos.length + 1, text: newTodo }]);
+    setNewTodo('');
+  };
+
+  const handleDelete = id => {
+    setTodos(todos.filter(todo => todo.id !== id));
   };
 
   return (
     <div>
-      <input type="text" value={searchValue} onChange={handleSearch} />
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={newTodo}
+          onChange={e => setNewTodo(e.target.value)}
+        />
+        <button type="submit">Add Todo</button>
+      </form>
       <ul>
-        {filteredList.map(item => (
-          <li key={item.id}>{item.name}</li>
+        {todos.map(todo => (
+          <li key={todo.id}>
+            {todo.text}
+            <button onClick={() => handleDelete(todo.id)}>Delete</button>
+          </li>
         ))}
       </ul>
     </div>
   );
 };
+
 
 
 export default App;
