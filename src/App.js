@@ -27,12 +27,14 @@ function App() {
   return (
     <div className='everything'>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={newTodo}
-          onChange={e => setNewTodo(e.target.value)}
-        />
-        <button type="submit">Add Todo</button>
+        <div className="just">
+          <input
+            type="text"
+            value={newTodo}
+            onChange={e => setNewTodo(e.target.value)}
+          />
+          <button type="submit">Add Todo</button>
+          </div>
       </form>
       <ul>
         {todos.map(todo => (
